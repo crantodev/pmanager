@@ -1,0 +1,26 @@
+export const project = {
+  SHOW_FORM: "PROJECT_SHOW_FORM",
+  SET: "PROJECT_SET",
+  ADD: "PROJECT_ADD",
+  DELETE: "PROJECT_DELETE",
+};
+
+export const task = {
+  SET: "TASK_SET",
+  ADD: "TASK_ADD",
+  DELETE: "TASK_DELETE",
+  PROJECT: "TASK_PROJECT_ID",
+  UNLOAD: "TASK_UNLOAD"
+};
+
+export const auth = {
+  LOGIN: "USER_LOGIN",
+  REGISTER: "USER_REGISTER",
+  LOGOUT: "USER_LOGOUT",
+};
+
+export const manager = {
+  PROCESSING: "PROCESSING",
+  MESSAGE: "MESSAGE",
+  VALIDATION: "VALIDATION_ERRORS"
+};

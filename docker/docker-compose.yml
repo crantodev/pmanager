@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: pmanager_server
+    ports:
+      - "80:80" # Connect localhost 80 port to container 80 port
+    links: # Link services to access http://app and  http://api inside the container
+      - api:api
+      - client:client
+  client:
+    build:
+      context: ..
+      dockerfile: docker/client/Dockerfile
+    image: crantodev/pmanager_client
+    environment:
+      - NODE_ENV=development
+      - CI=true
+    volumes:
+      - ./../client:/usr/src/client
+    depends_on:
+      - "api"
+  api:
+    build:
+      context: ..
+      dockerfile: docker/api/Dockerfile
+    image: crantodev/pmanager_api
+    environment:
+      - DB_NAME=pmanager
+      - DB_USER=root
+      - DB_PASS=pass
+      - DB_HOST=db
+      - DB_PORT=27017
+      - NODE_ENV=development
+      - SECRET=PM540da68428ab757d7f8fe6ca01fa1efe
+    links:
+      - db:db
+    volumes:
+      - ./../api:/usr/src/api
+    depends_on:
+      - "db"
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ~/.data/pmanager:/data/db
